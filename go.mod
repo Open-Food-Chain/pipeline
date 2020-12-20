@@ -26,6 +26,7 @@ require (
 	github.com/pkg/sftp v1.12.0
 	github.com/prometheus/common v0.6.0
 	github.com/robfig/cron/v3 v3.0.1
+	github.com/streadway/amqp v1.0.0
 	github.com/stretchr/testify v1.6.1
 	github.com/unchainio/interfaces v0.2.1
 	github.com/unchainio/pkg v0.22.1
