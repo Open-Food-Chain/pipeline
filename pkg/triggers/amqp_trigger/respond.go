@@ -21,6 +21,7 @@ func (t *Trigger) Respond(tag string, response map[string]interface{}, err error
 		if err != nil {
 			return err
 		}
+		return nil
 	}
 
 	err = t.amqpChannel.Ack(delivery.DeliveryTag, false)
