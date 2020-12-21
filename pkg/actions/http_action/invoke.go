@@ -35,12 +35,17 @@ func Invoke(stub domain.Stub, input map[string]interface{}) (output map[string]i
 		return nil, errors.New("could not cast method to string")
 	}
 
+	contentType := input[ContentType].(string)
+	if !ok {
+		return nil, errors.New("could not cast content type to string")
+	}
+
 	var resp *http.Response
 	switch strings.ToUpper(method) {
 	case "POST":
-		resp, err = http.Post(url, ContentType, bytes.NewBuffer(requestBody))
-		if err != nil {
-			return nil, errors.Wrap(err, "could not post json")
+		resp, err = http.Post(url, contentType, bytes.NewBuffer(requestBody))
+		if err != nil || resp.StatusCode != http.StatusOK {
+			return nil, errors.Wrapf(err, "could not post json. HTTP Response code: %v\n", resp.StatusCode)
 		}
 		stub.Debugf("request send to url: %s\n", url)
 	default:
