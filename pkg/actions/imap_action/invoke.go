@@ -46,6 +46,10 @@ func Invoke(stub domain.Stub, input map[string]interface{}) (output map[string]i
 		if err != nil {
 			return nil, errors.Wrap(err, "could not get new message attachments")
 		}
+		err = client.Client.Close()
+		if err != nil {
+			return nil, errors.Wrapf(err, "could not close client")
+		}
 		return attachments, nil
 	case "MarkMessageAsRead":
 		params, ok := input[Params].(map[string]interface{})
@@ -59,6 +63,10 @@ func Invoke(stub domain.Stub, input map[string]interface{}) (output map[string]i
 		err = client.MarkMessageAsRead(uint32(seqNum))
 		if err != nil {
 			return nil, errors.Wrap(err, "could not mark message as read")
+		}
+		err = client.Client.Close()
+		if err != nil {
+			return nil, errors.Wrapf(err, "could not close client")
 		}
 		return nil, nil
 	case "MoveFailedMessage":
@@ -74,8 +82,16 @@ func Invoke(stub domain.Stub, input map[string]interface{}) (output map[string]i
 		if err != nil {
 			return nil, errors.Wrap(err, "could not move failed message")
 		}
+		err = client.Client.Close()
+		if err != nil {
+			return nil, errors.Wrapf(err, "could not close client")
+		}
 		return nil, nil
 	case "NoOp":
+		err = client.Client.Close()
+		if err != nil {
+			return nil, errors.Wrapf(err, "could not close client")
+		}
 		return nil, nil
 	default:
 		return nil, errors.New(fmt.Sprintf(`
@@ -84,9 +100,7 @@ func Invoke(stub domain.Stub, input map[string]interface{}) (output map[string]i
 The following commands are available:
 - GetNewMessageAttachments
 - MarkMessageAsRead 
-
+- MoveFailedMessage
 		`))
 	}
-
-	return nil, nil
 }
