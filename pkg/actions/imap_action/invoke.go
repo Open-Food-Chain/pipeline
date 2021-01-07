@@ -46,9 +46,9 @@ func Invoke(stub domain.Stub, input map[string]interface{}) (output map[string]i
 		if err != nil {
 			return nil, errors.Wrap(err, "could not get new message attachments")
 		}
-		err = client.Client.Close()
+		err = client.Client.Terminate()
 		if err != nil {
-			return nil, errors.Wrapf(err, "could not close client")
+			return nil, errors.Wrapf(err, "could not terminate client")
 		}
 		return attachments, nil
 	case "MarkMessageAsRead":
@@ -64,9 +64,9 @@ func Invoke(stub domain.Stub, input map[string]interface{}) (output map[string]i
 		if err != nil {
 			return nil, errors.Wrap(err, "could not mark message as read")
 		}
-		err = client.Client.Close()
+		err = client.Client.Terminate()
 		if err != nil {
-			return nil, errors.Wrapf(err, "could not close client")
+			return nil, errors.Wrapf(err, "could not terminate client")
 		}
 		return nil, nil
 	case "MoveFailedMessage":
@@ -82,15 +82,15 @@ func Invoke(stub domain.Stub, input map[string]interface{}) (output map[string]i
 		if err != nil {
 			return nil, errors.Wrap(err, "could not move failed message")
 		}
-		err = client.Client.Close()
+		err = client.Client.Terminate()
 		if err != nil {
-			return nil, errors.Wrapf(err, "could not close client")
+			return nil, errors.Wrapf(err, "could not terminate client")
 		}
 		return nil, nil
 	case "NoOp":
-		err = client.Client.Close()
+		err = client.Client.Terminate()
 		if err != nil {
-			return nil, errors.Wrapf(err, "could not close client")
+			return nil, errors.Wrapf(err, "could not terminate client")
 		}
 		return nil, nil
 	default:
