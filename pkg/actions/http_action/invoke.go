@@ -45,7 +45,11 @@ func Invoke(stub domain.Stub, input map[string]interface{}) (output map[string]i
 	case "POST":
 		resp, err = http.Post(url, contentType, bytes.NewBuffer(requestBody))
 		if err != nil || resp.StatusCode != http.StatusOK {
-			return nil, errors.Wrapf(err, "could not post json. HTTP Response code: %v\n", resp.StatusCode)
+			statusCode := 0
+			if resp != nil {
+				statusCode = resp.StatusCode
+			}
+			return nil, errors.Wrapf(err, "could not post json. If present, HTTP Response code: %v\n", statusCode)
 		}
 		stub.Debugf("request send to url: %s\n", url)
 	default:
