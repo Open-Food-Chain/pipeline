@@ -49,11 +49,6 @@ func NewClient(logger logger.Logger, cfg *Config) (*Client, error) {
 		return nil, err
 	}
 
-	go func() {
-		loggedOut := <-client.Client.LoggedOut()
-		logger.Warnf("logged out: %v", loggedOut)
-	}()
-
 	mbox, err := client.Client.Select("INBOX", false)
 	if err != nil {
 		return nil, err
