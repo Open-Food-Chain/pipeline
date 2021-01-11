@@ -44,24 +44,19 @@ func Invoke(stub domain.Stub, input map[string]interface{}) (output map[string]i
 	switch strings.ToUpper(method) {
 	case "POST":
 		resp, err = http.Post(url, contentType, bytes.NewBuffer(requestBody))
-		if err != nil || resp.StatusCode != http.StatusOK {
-			statusCode := 0
-			if resp != nil {
-				statusCode = resp.StatusCode
-			}
-			return nil, errors.Wrapf(err, "could not post json. If present, HTTP Response code: %v\n", statusCode)
+		if err != nil {
+			return nil, err
 		}
 		stub.Debugf("request send to url: %s\n", url)
 	default:
 		return nil, errors.New("no valid method")
 	}
-
 	defer resp.Body.Close()
 	bodyBytes, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		return nil, errors.Wrap(err, "could not read response body")
 	}
-	stub.Debugf("returning http request response with code %v, body:\n %v\n", resp.StatusCode, string(bodyBytes))
+	stub.Debugf("returning http request response with code %v, body:\n %v", resp.StatusCode, string(bodyBytes))
 
 	return map[string]interface{}{
 		ResponseBody:       bodyBytes,

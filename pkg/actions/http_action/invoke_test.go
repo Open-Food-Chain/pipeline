@@ -19,6 +19,7 @@ func (s *TestSuite) TestHttpAction_Invoke() {
 		ExpectedBody       interface{}
 		ExpectedHeaders    map[string][]string
 		ExpectedStatusCode int
+		ExpectedError      string
 	}{
 		"successfully calls api": {
 			s.logger,
@@ -32,8 +33,23 @@ func (s *TestSuite) TestHttpAction_Invoke() {
 			"{\"key\":\"value\"}\n",
 			nil,
 			200,
+			"",
 		},
-		"failed api gives back error and status code": {
+		"bad request returns error and 400 status code": {
+			s.logger,
+			map[string]interface{}{
+				http_action.Url:         "http://localhost:8888/api/badrequest",
+				http_action.ContentType: "application/json",
+				http_action.Method:      "POST",
+				http_action.RequestBody: []byte("sup"),
+			},
+			true,
+			"{\"key\":\"value\"}\n",
+			nil,
+			400,
+			"",
+		},
+		"failed api gives back error and 500 status code": {
 			s.logger,
 			map[string]interface{}{
 				http_action.Url:         "http://localhost:8888/api/fail",
@@ -42,9 +58,10 @@ func (s *TestSuite) TestHttpAction_Invoke() {
 				http_action.RequestBody: []byte("sup"),
 			},
 			true,
-			"{}\n",
+			nil,
 			nil,
 			500,
+			"",
 		},
 		"fails without url": {
 			s.logger,
@@ -58,6 +75,7 @@ func (s *TestSuite) TestHttpAction_Invoke() {
 			nil,
 			nil,
 			0,
+			"could not cast url",
 		},
 		"fails with unknown url": {
 			s.logger,
@@ -71,6 +89,7 @@ func (s *TestSuite) TestHttpAction_Invoke() {
 			nil,
 			nil,
 			0,
+			"Post \"http://gibberish:8888/api/fail\": dial tcp: lookup gibberish: no such host",
 		},
 		"fails without request body": {
 			s.logger,
@@ -84,6 +103,7 @@ func (s *TestSuite) TestHttpAction_Invoke() {
 			nil,
 			nil,
 			0,
+			"could not cast request body to []byte",
 		},
 		"fails without method": {
 			s.logger,
@@ -97,6 +117,7 @@ func (s *TestSuite) TestHttpAction_Invoke() {
 			nil,
 			nil,
 			0,
+			"could not cast method to string",
 		},
 		"fails with unknown method": {
 			s.logger,
@@ -110,6 +131,7 @@ func (s *TestSuite) TestHttpAction_Invoke() {
 			nil,
 			nil,
 			0,
+			"no valid method",
 		},
 	}
 
@@ -123,6 +145,13 @@ func (s *TestSuite) TestHttpAction_Invoke() {
 		w.WriteHeader(500)
 		render.JSON(w, r, map[string]interface{}{})
 	})
+	http.HandleFunc("/api/badrequest", func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(400)
+		render.JSON(w, r, map[string]interface{}{
+			"key": "value",
+		})
+	})
+
 	server := &http.Server{
 		Addr: port,
 	}
@@ -150,6 +179,7 @@ func (s *TestSuite) TestHttpAction_Invoke() {
 				require.NotNil(t, res)
 			} else {
 				require.Error(t, err)
+				require.Equal(t, tc.ExpectedError, err.Error())
 			}
 		})
 	}
