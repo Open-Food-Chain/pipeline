@@ -2,7 +2,7 @@ package amqp_trigger
 
 import (
 	"github.com/streadway/amqp"
-	"github.com/unchain/pipeline/pkg/domain"
+	"github.com/The-New-Fork/pipeline/pkg/domain"
 	"sync"
 )
 

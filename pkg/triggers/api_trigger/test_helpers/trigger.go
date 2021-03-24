@@ -1,7 +1,7 @@
 package test_helpers
 
 import (
-	"github.com/unchain/pipeline/pkg/triggers/api_trigger"
+	"github.com/The-New-Fork/pipeline/pkg/triggers/api_trigger"
 	"github.com/unchainio/pkg/errors"
 	"time"
 )

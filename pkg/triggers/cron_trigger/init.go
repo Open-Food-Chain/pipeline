@@ -3,7 +3,7 @@ package cron_trigger
 import (
 	"bytes"
 	"github.com/robfig/cron/v3"
-	"github.com/unchain/pipeline/pkg/domain"
+	"github.com/The-New-Fork/pipeline/pkg/domain"
 	"github.com/unchainio/pkg/errors"
 	"github.com/unchainio/pkg/xconfig"
 )

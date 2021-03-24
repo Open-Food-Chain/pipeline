@@ -2,7 +2,7 @@ package config
 
 import (
 	"github.com/BurntSushi/toml"
-	"github.com/unchain/pipeline/pkg/triggers/api_trigger/auth/basicauth"
+	"github.com/The-New-Fork/pipeline/pkg/triggers/api_trigger/auth/basicauth"
 	"github.com/unchainio/pkg/errors"
 )
 

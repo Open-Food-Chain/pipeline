@@ -1,9 +1,9 @@
 package api_trigger_test
 
 import (
-	"github.com/unchain/pipeline/pkg/factory"
-	"github.com/unchain/pipeline/pkg/helper"
-	"github.com/unchain/pipeline/pkg/triggers/api_trigger/test_helpers"
+	"github.com/The-New-Fork/pipeline/pkg/factory"
+	"github.com/The-New-Fork/pipeline/pkg/helper"
+	"github.com/The-New-Fork/pipeline/pkg/triggers/api_trigger/test_helpers"
 	"testing"
 
 	"github.com/unchainio/interfaces/logger"

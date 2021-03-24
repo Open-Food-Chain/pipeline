@@ -1,7 +1,7 @@
 package smtp_action
 
 import (
-	"github.com/unchain/pipeline/pkg/domain"
+	"github.com/The-New-Fork/pipeline/pkg/domain"
 	"github.com/unchainio/pkg/errors"
 	"net/smtp"
 )

@@ -3,7 +3,7 @@ package imap_action
 import (
 	"fmt"
 	"github.com/pkg/errors"
-	"github.com/unchain/pipeline/pkg/domain"
+	"github.com/The-New-Fork/pipeline/pkg/domain"
 	"github.com/unchainio/pkg/xconfig"
 	"strings"
 )
