@@ -3,8 +3,8 @@ package http_action_test
 import (
 	"github.com/go-chi/render"
 	"github.com/stretchr/testify/require"
-	"github.com/unchain/pipeline/pkg/actions/http_action"
-	"github.com/unchain/pipeline/pkg/domain"
+	"github.com/The-New-Fork/pipeline/pkg/actions/http_action"
+	"github.com/The-New-Fork/pipeline/pkg/domain"
 	"net/http"
 	"testing"
 )

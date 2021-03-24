@@ -1,7 +1,7 @@
 package api_trigger
 
 import (
-	"github.com/unchain/pipeline/pkg/domain"
+	"github.com/The-New-Fork/pipeline/pkg/domain"
 	"github.com/unchainio/pkg/errors"
 )
 

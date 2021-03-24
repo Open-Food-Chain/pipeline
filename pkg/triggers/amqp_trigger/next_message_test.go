@@ -3,8 +3,8 @@ package amqp_trigger_test
 import (
 	"github.com/streadway/amqp"
 	"github.com/stretchr/testify/require"
-	"github.com/unchain/pipeline/pkg/domain"
-	"github.com/unchain/pipeline/pkg/triggers/amqp_trigger"
+	"github.com/The-New-Fork/pipeline/pkg/domain"
+	"github.com/The-New-Fork/pipeline/pkg/triggers/amqp_trigger"
 	"testing"
 	"time"
 )

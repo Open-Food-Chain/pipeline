@@ -2,7 +2,7 @@ package cron_trigger
 
 import (
 	"github.com/robfig/cron/v3"
-	"github.com/unchain/pipeline/pkg/domain"
+	"github.com/The-New-Fork/pipeline/pkg/domain"
 )
 
 type Trigger struct {

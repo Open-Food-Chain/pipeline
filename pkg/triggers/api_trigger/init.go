@@ -1,9 +1,9 @@
 package api_trigger
 
 import (
-	"github.com/unchain/pipeline/pkg/domain"
-	"github.com/unchain/pipeline/pkg/triggers/api_trigger/config"
-	"github.com/unchain/pipeline/pkg/triggers/api_trigger/listener"
+	"github.com/The-New-Fork/pipeline/pkg/domain"
+	"github.com/The-New-Fork/pipeline/pkg/triggers/api_trigger/config"
+	"github.com/The-New-Fork/pipeline/pkg/triggers/api_trigger/listener"
 )
 
 const defaultPort = "80"

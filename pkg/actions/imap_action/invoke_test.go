@@ -3,8 +3,8 @@ package imap_action_test
 import (
 	"fmt"
 	"github.com/stretchr/testify/require"
-	"github.com/unchain/pipeline/pkg/actions/imap_action"
-	"github.com/unchain/pipeline/pkg/domain"
+	"github.com/The-New-Fork/pipeline/pkg/actions/imap_action"
+	"github.com/The-New-Fork/pipeline/pkg/domain"
 	"os"
 	"testing"
 )
