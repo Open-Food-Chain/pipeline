@@ -3,8 +3,8 @@ package ftp_action
 import (
 	"encoding/base64"
 	"fmt"
-	"github.com/pkg/sftp"
 	"github.com/The-New-Fork/pipeline/pkg/domain"
+	"github.com/pkg/sftp"
 	"github.com/unchainio/pkg/errors"
 	"golang.org/x/crypto/ssh"
 	"net"
@@ -25,7 +25,7 @@ const (
 	Move     = "move"
 	// parameters
 	FilePath    = "filepath"
-	Directory   = "dir"
+	Directory   = "directory"
 	Target      = "target"
 	OutputFiles = "outputFiles"
 )
@@ -82,7 +82,7 @@ func Invoke(stub domain.Stub, input map[string]interface{}) (output map[string]i
 		}
 		walker := client.Walk(dir)
 
-		files := make(map[string][]byte)
+		files := map[string]interface{}{}
 		for walker.Step() {
 			if walker.Err() != nil {
 				return nil, err
