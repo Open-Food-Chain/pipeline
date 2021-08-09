@@ -2,6 +2,9 @@ package imap_action
 
 import (
 	"fmt"
+	"io"
+	"io/ioutil"
+
 	"github.com/emersion/go-imap"
 	move "github.com/emersion/go-imap-move"
 	imapclient "github.com/emersion/go-imap/client"
@@ -9,8 +12,6 @@ import (
 	"github.com/pkg/errors"
 	"github.com/prometheus/common/log"
 	"github.com/unchainio/interfaces/logger"
-	"io"
-	"io/ioutil"
 )
 
 type Client struct {
@@ -58,13 +59,24 @@ func NewClient(logger logger.Logger, cfg *Config) (*Client, error) {
 	return client, nil
 }
 
-func (c *Client) createFailedMailbox() error {
+func (c *Client) createFailedMailbox() (err error) {
 	ch := make(chan *imap.MailboxInfo, 1)
 
-	err := c.Client.List("", "Failed", ch)
+	err = c.Client.List("", "Failed", ch)
 	if err != nil {
 		return errors.Wrap(err, "")
 	}
+
+	defer func() {
+		subscribeErr := c.Client.Subscribe("Failed")
+		if subscribeErr != nil {
+			if err != nil {
+				errors.Wrap(err, subscribeErr.Error())
+			} else {
+				err = subscribeErr
+			}
+		}
+	}()
 
 	mailbox := <-ch
 
