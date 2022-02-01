@@ -1,0 +1,5 @@
+Apache [pipeline]
+Copyright [XXXX-XXXX] The New Fork
+
+This product includes software developed at
+The New Fork (https://thenewfork.com/).
