@@ -36,7 +36,7 @@ func Invoke(stub domain.Stub, input map[string]interface{}) (output map[string]i
 		}
 		delimiter := ','
 		if input[Delimiter] != nil {
-			delimiter, ok = input[Delimiter]
+			delimiter, ok = input[Delimiter].(rune)
 			if (!ok) {
 				return nil, errors.New("could not cast delimiter to rune")
 			}
