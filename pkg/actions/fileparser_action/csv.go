@@ -8,7 +8,7 @@ import (
 	"strings"
 )
 
-func ParseCsv(stub domain.Stub, rawFile []byte, header bool, delimiter rune) (map[string]interface{}, error) {
+func ParseCsv(stub domain.Stub, rawFile []byte, header bool, delimiter string) (map[string]interface{}, error) {
 	r := csv.NewReader(bytes.NewReader(rawFile))
 	r.Comma = delimiter // use ; delimiter instead of ,
 
